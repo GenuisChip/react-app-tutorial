@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 class Counter extends Component {
-  state = { count: 0 };
+  state = { count: this.props.value };
   handleIncrement = () => {
     this.setState({ count: this.state.count + 1 });
   };
   render() {
     return (
       <React.Fragment>
+        <h4>{this.props.children}</h4>
         <span className={this.getClassName()}>{this.formatCount()}</span>
         <button
           onClick={this.handleIncrement}
