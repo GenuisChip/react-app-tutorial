@@ -17,6 +17,7 @@ class Counters extends React.Component {
               <Counter
                 onDelete={(id) => this.props.handleDelete(id)}
                 onIncrement={(counter) => this.props.handleIncrement(counter)}
+                onDecrement={(counter) => this.props.handleDecrement(counter)}
                 counter={counter}
               >
                 #This Is Children {counter.id}
