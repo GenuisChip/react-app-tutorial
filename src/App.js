@@ -8,6 +8,7 @@ import { Route, Routes } from "react-router-dom";
 import MoviesPage from "./components/moviesPage/moviesPage";
 import HomePage from "./components/homePage/homePage";
 import MovieDetailsPage from "./components/moviesDetailsPage/moviesDetailsPage";
+import LoginForm from "./components/loginPage/loginForm";
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
         <div className="content">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginForm />} />
             <Route path="/movies" element={<MoviesPage />} />
             <Route path="/movies/:movieId" element={<MovieDetailsPage />}>
               {/* there is no optional params in react router dom v6 ,

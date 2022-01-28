@@ -1,7 +1,7 @@
 // create stateless functional component
 // const NavBar = (props) => {} // you can destructure props
 
-import { Link, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 
 const NavBar = ({ totalCounters }) => {
   return (
@@ -12,6 +12,7 @@ const NavBar = ({ totalCounters }) => {
 
       <Link to="/">Home</Link>
       <Link to="/movies">Movies</Link>
+      <NavLink to="/login">Login</NavLink>
     </nav>
   );
 };
