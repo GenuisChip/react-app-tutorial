@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 class MoviesPage extends Component {
   state = {
     movies: [
@@ -79,7 +80,9 @@ class MoviesPage extends Component {
                 <td>
                   <img height="80px" src={movie.image} alt="movie" />
                 </td>
-                <td>{movie.title}</td>
+                <td>
+                  <Link to={movie.id.toString()}>{movie.title}</Link>
+                </td>
                 <td>{movie.year}</td>
                 <td>{movie.genre}</td>
                 <td>{movie.rating}</td>
