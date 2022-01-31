@@ -13,6 +13,7 @@ const NavBar = ({ totalCounters }) => {
       <Link to="/">Home</Link>
       <Link to="/movies">Movies</Link>
       <NavLink to="/login">Login</NavLink>
+      <NavLink to="/Registration">Registration</NavLink>
     </nav>
   );
 };

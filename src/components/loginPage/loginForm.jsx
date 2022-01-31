@@ -19,7 +19,6 @@ class LoginForm extends Form {
   }
 
   render() {
-    const { data, errors } = this.state;
     return (
       <div className="container">
         <h1>Login</h1>
