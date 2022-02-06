@@ -1,54 +1,24 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import * as moviesService from "../../services/moviesService";
 class MoviesPage extends Component {
   state = {
-    movies: [
-      {
-        id: 1,
-        favorite: false,
-        title: "The Shawshank Redemption",
-        year: 1994,
-        genre: "Drama",
-        rating: "9.3",
-        image:
-          "https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UX182_CR0,0,182,268_AL_.jpg",
-      },
-      {
-        id: 2,
-        favorite: false,
-        title: "The Godfather",
-        year: 1972,
-        genre: "Crime",
-        rating: "9.2",
-        image:
-          "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UY268_CR3,0,182,268_AL_.jpg",
-      },
-      {
-        id: 3,
-        favorite: false,
-        title: "The Godfather: Part II",
-        year: 1974,
-        genre: "Crime",
-        rating: "9.0",
-        image:
-          "https://m.media-amazon.com/images/M/MV5BMWMwMGQzZTItY2JlNC00OWZiLWIyMDctNDk2ZDQ2YjRjMWQ0XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UX182_CR0,0,182,268_AL_.jpg",
-      },
-      {
-        id: 4,
-        favorite: false,
-        title: "The Dark Knight",
-        year: 2008,
-        genre: "Action",
-        rating: "9.0",
-        image:
-          "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_UX182_CR0,0,182,268_AL_.jpg",
-      },
-    ],
+    movies: [],
   };
 
-  handleDelete(movie) {
+  async handleDelete(movie) {
+    const index = this.state.movies.indexOf(movie);
     const movies = this.state.movies.filter((m) => m.id !== movie.id);
     this.setState({ movies });
+    try {
+      await moviesService.DeleteMovie(movie.id);
+    } catch (ex) {
+      if (ex.response && ex.response.status === 404) {
+        alert("This movie has already been deleted");
+      }
+      movies.splice(index, 0, movie);
+      this.setState({ movies });
+    }
   }
 
   handleFavorite(movie) {
@@ -56,6 +26,13 @@ class MoviesPage extends Component {
     const index = movies.indexOf(movie);
     movies[index].favorite = !movie.favorite;
     this.setState({ movies });
+  }
+  async getData() {
+    var { data: movies } = await moviesService.GetAllMovies();
+    this.setState({ movies });
+  }
+  async componentDidMount() {
+    await this.getData();
   }
 
   render() {
@@ -78,14 +55,14 @@ class MoviesPage extends Component {
             {this.state.movies.map((movie) => (
               <tr key={movie.id}>
                 <td>
-                  <img height="80px" src={movie.image} alt="movie" />
+                  {/* <img height="80px" src={movie.image} alt="movie" /> */}
                 </td>
                 <td>
                   <Link to={movie.id.toString()}>{movie.title}</Link>
                 </td>
-                <td>{movie.year}</td>
-                <td>{movie.genre}</td>
-                <td>{movie.rating}</td>
+                <td>{movie.id}</td>
+                <td>{movie.title}</td>
+                <td>{movie.userId}</td>
                 <td>
                   <i className="fa fa-heart"></i>
                 </td>
