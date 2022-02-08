@@ -1,30 +1,19 @@
 import { useParams, useSearchParams } from "react-router-dom";
-import React, { useState, useMemo, useContext } from "react";
-import { Theme } from "../../App";
+import React, { useState, useMemo } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { increment, decrement } from "../../actions/counterActions";
 const MoviesDetailsPage = () => {
   // get params
   let { movieId, showNextMovie } = useParams();
-  const [counter, setCounter] = useState(0);
-  const theme = useContext(Theme);
 
   //get query params
   const [searchParams] = useSearchParams();
   console.log(searchParams.get("sort"));
 
   //use memo button
-  const button = useMemo(() => {
-    return (
-      <>
-        <button
-          className="btn btn-success"
-          onClick={() => setCounter(counter + 1)}
-        >
-          Inc
-        </button>
-        Theme {theme}
-      </>
-    );
-  }, [counter]);
+
+  const counter = useSelector((state) => state.counter);
+  const dispatch = useDispatch();
 
   return (
     <div>
@@ -32,7 +21,7 @@ const MoviesDetailsPage = () => {
       <h1>{showNextMovie}</h1>
       <h1>QueryParam : {searchParams.get("sort")}</h1>
       <h1>Counter : {counter}</h1>
-      {button}
+      <button onClick={() => dispatch(increment())}>+</button>
     </div>
   );
 };

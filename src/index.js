@@ -7,11 +7,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Counters from "./components/counters";
 import MoviesPage from "./components/moviesPage/moviesPage";
 import { BrowserRouter } from "react-router-dom";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import allReducers from "./reducers";
+var myStore = createStore(allReducers);
 
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <Provider store={myStore}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );
 
